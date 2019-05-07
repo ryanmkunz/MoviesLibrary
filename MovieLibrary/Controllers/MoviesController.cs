@@ -20,9 +20,9 @@ namespace MovieLibrary.Controllers
         }
 
         // GET api/values/5
-        public string Get(int id)
+        public Movie Get(int id)
         {
-            var movie = context.Movies.FirstOrDefault(m => m.id == id).title.ToString();
+            var movie = context.Movies.FirstOrDefault(m => m.id == id);
             return movie;
         }
 
@@ -36,15 +36,25 @@ namespace MovieLibrary.Controllers
         // PUT api/values/5
         public void Put(int id, [FromBody]Movie movie)
         {
-            if (context.Movies.Find(id) == null)
+            if (!ModelState.IsValid)
             {
-                context.Movies.Add(movie);
-                context.SaveChanges();
+                BadRequest("Invalid data.");
             }
             else
             {
-                
-            }
+                var currentMovie = context.Movies.Find(id);
+                if (currentMovie == null)
+                {
+                    context.Movies.Add(movie);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    currentMovie.title = movie.title;
+                    currentMovie.genre = movie.genre;
+                    currentMovie.director = movie.director;
+                }
+            }            
         }
     }
 }
