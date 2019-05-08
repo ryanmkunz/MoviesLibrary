@@ -32,7 +32,9 @@
                         ulMovies.empty();
                         $.each(data, function (index, val) {
                             var movieTitle = val.Title;
-                            if (movieTitle == current_query) {
+                            var movieGenre = val.Genre;
+                            var movieDirectorName = val.DirectorName;
+                            if (movieTitle == current_query || movieGenre == current_query || movieDirectorName == current_query) {
                                 ulMovies.append('<li>' + movieTitle + '</li>')
                             }                            
                         });
