@@ -11,12 +11,12 @@ namespace MovieLibrary.Migrations
                 "dbo.Movies",
                 c => new
                     {
-                        id = c.Int(nullable: false, identity: true),
-                        title = c.String(),
-                        genre = c.String(),
-                        director = c.String(),
+                        Id = c.Int(nullable: false, identity: true),
+                        Title = c.String(),
+                        Genre = c.String(),
+                        DirectorName = c.String(),
                     })
-                .PrimaryKey(t => t.id);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.AspNetRoles",

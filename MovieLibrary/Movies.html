@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="Scripts/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var ulMovies = $('#ulMovies');
+
+            $('#btn').click(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: 'api/Movies',
+                    dataType: 'json',
+                    success: function (data) {
+                        ulMovies.empty();
+                        $.each(data, function (index, val) {
+                            var movieTitle = val.Title;
+                            ulMovies.append('<li>' + movieTitle + '</li>')
+                        });
+                    }
+                });
+            });
+            $('#btnClear').click(function () {
+                ulMovies.empty();
+            });
+        });
+    
+    </script>
+</head>
+<body>
+    <input id="btn" type="button" value="Get All Movies" />
+    <input id="btnClear" type="button" value="Clear" />
+    <ul id="ulMovies"></ul>
+</body>
+</html>

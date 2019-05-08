@@ -13,7 +13,7 @@ namespace MovieLibrary.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201905071939405_1"; }
+            get { return "201905081620060_1"; }
         }
         
         string IMigrationMetadata.Source

@@ -218,9 +218,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201905071939405_1.cs" />
-    <Compile Include="Migrations\201905071939405_1.Designer.cs">
-      <DependentUpon>201905071939405_1.cs</DependentUpon>
+    <Compile Include="Migrations\201905081620060_1.cs" />
+    <Compile Include="Migrations\201905081620060_1.Designer.cs">
+      <DependentUpon>201905081620060_1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -241,6 +241,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Movies.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -321,8 +322,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201905071939405_1.resx">
-      <DependentUpon>201905071939405_1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905081620060_1.resx">
+      <DependentUpon>201905081620060_1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -22,7 +22,7 @@ namespace MovieLibrary.Controllers
         // GET api/values/5
         public Movie Get(int id)
         {
-            var movie = context.Movies.FirstOrDefault(m => m.id == id);
+            var movie = context.Movies.FirstOrDefault(m => m.Id == id);
             return movie;
         }
 
@@ -45,14 +45,13 @@ namespace MovieLibrary.Controllers
                 var currentMovie = context.Movies.Find(id);
                 if (currentMovie == null)
                 {
-                    context.Movies.Add(movie);
-                    context.SaveChanges();
+                    Post(movie);
                 }
                 else
                 {
-                    currentMovie.title = movie.title;
-                    currentMovie.genre = movie.genre;
-                    currentMovie.director = movie.director;
+                    currentMovie.Title = movie.Title;
+                    currentMovie.Genre = movie.Genre;
+                    currentMovie.DirectorName = movie.DirectorName;
                 }
             }            
         }
