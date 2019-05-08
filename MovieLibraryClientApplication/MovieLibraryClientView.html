@@ -11,7 +11,7 @@
             $('#btn').click(function () {
                 $.ajax({
                     type: 'GET',
-                    url: 'api/Movies',
+                    url: "http://localhost:57145/api/Movies",
                     dataType: 'json',
                     success: function (data) {
                         ulMovies.empty();
@@ -21,18 +21,35 @@
                         });
                     }
                 });
+            });           
+            $('#search').keypress(function () {
+                var current_query = $("#search").val();
+                $.ajax({
+                    type: 'GET',
+                    url: "http://localhost:57145/api/Movies",
+                    dataType: 'json',
+                    success: function (data) {
+                        ulMovies.empty();
+                        $.each(data, function (index, val) {
+                            var movieTitle = val.Title;
+                            if (movieTitle == current_query) {
+                                ulMovies.append('<li>' + movieTitle + '</li>')
+                            }                            
+                        });
+                    }
+                });
             });
             $('#btnClear').click(function () {
                 ulMovies.empty();
             });
         });
-    
+
     </script>
 </head>
 <body>
     <input id="btn" type="button" value="Get All Movies" />
     <input id="btnClear" type="button" value="Clear" />
-    <input id="searchByTitle" type="search"
+    <input id="search" type="search" placeholder="Search" />
     <ul id="ulMovies"></ul>
 </body>
 </html>
