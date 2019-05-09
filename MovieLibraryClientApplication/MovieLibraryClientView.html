@@ -16,10 +16,11 @@
                     success: function (data) {
                         ulMovies.empty();
                         $.each(data, function (index, val) {
+                            var movieId = val.Id;
                             var movieTitle = val.Title;
                             var movieGenre = val.Genre;
-                            var movieDirectorName = val.DirectorName;
-                            var btnDetails = $('<input type="button" value="Details" id="btnDetails" /> ').data('title', movieTitle).data('genre', movieGenre).data('director', movieDirectorName).on('click', function () {
+                            var movieDirectorName = val.DirectorName;                            
+                            var btnDetails = $('<input type="button" value="Details" id="btnDetails" />').data('title', movieTitle).data('genre', movieGenre).data('director', movieDirectorName).on('click', function () {
                                 var title = $(this).data('title');
                                 var genre = $(this).data('genre');
                                 var directorName = $(this).data('director');
@@ -27,6 +28,35 @@
                                 ulMovies.append('<li>' + title + '</li>')
                                 ulMovies.append('<li>' + genre + '</li>')
                                 ulMovies.append('<li>' + directorName + '</li>')
+                                var txtBoxTitle = $('<input type="text" id="txtBoxTitle" value="Movie Title" />');
+                                var txtBoxGenre = $('<input type="text" id="txtBoxGenre" value="Movie Genre" />');
+                                var txtBoxDirector = $('<input type="text" id="txtBoxDirector" value="Director Name" />');
+                                var newTitle = $('#txtBoxTitle');
+                                var newGenre = $('#txtBoxGenre');
+                                var newDirector = $('txtBoxDirector');
+                                var btnSubmit = $('<input type="submit" value="Submit Changes" id="btnSubmit" />').keydown(function () {
+                                    var update = {
+                                        Title: newTitle.val(),
+                                        Genre: newGenre.val(),
+                                        DirectorName: newDirector.val()
+                                    };
+                                    $.ajax({
+                                        type: 'PUT',
+                                        url: "http://localhost:57145/api/Movies/" + movieId,
+                                        data: update,
+                                        success: function (updateLibrary) {
+                                            data.append('<li>Title: ' + updateLibrary.newTitle + ', Genre: ' + updateLibrary.newGenre + ', DirectorName: ' + updateLibrary.newDirector + '</li>');
+                                        }
+                                    })
+                                });
+                                var btnEdit = $('<input type="button" value="Edit" id="btnEdit" />').on('click', function () {
+                                    ulMovies.empty()
+                                    ulMovies.append(txtBoxTitle)
+                                    ulMovies.append(txtBoxGenre)
+                                    ulMovies.append(txtBoxDirector)
+                                    ulMovies.append(btnSubmit)
+                                })
+                                ulMovies.append(btnEdit)
                             });                            
                             ulMovies.append('<li>' + movieTitle + '</li>')
                             ulMovies.append(btnDetails)                            
@@ -68,6 +98,41 @@
             $('#btnClear').click(function () {
                 ulMovies.empty();
             });
+
+            $('#btnAdd').click(function () {
+                var txtBoxTitle = $('<input type="text" id="txtBoxTitle" value="Movie Title" />');
+                var txtBoxGenre = $('<input type="text" id="txtBoxGenre" value="Movie Genre" />');
+                var txtBoxDirector = $('<input type="text" id="txtBoxDirector" value="Director Name" />');
+                
+                var btnSubmit = $('<input type="submit" value="Submit Changes" id="btnSubmit" />').on('click', function () {
+                    var newTitle = txtBoxTitle.val;
+                    var newGenre = txtBoxGenre.val;
+                    var newDirector = txtBoxDirector.val;
+
+                    var newMovie = {
+                        Title: newTitle,
+                        Genre: newGenre,
+                        DirectorName: newDirector
+                    };
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "http://localhost:57145/api/Movies",
+                        data: newMovie,
+                        success: function (addToLibrary) {
+                            data.append('<li>Title: ' + addToLibrary.newTitle + ', Genre: ' + addToLibrary.newGenre + ', DirectorName: ' + addToLibrary.newDirector + '</li>');
+                        },
+                        error: function () {
+                            alert('error saving order');
+                        }
+                    })
+                })
+                ulMovies.empty();
+                ulMovies.append(txtBoxTitle)
+                ulMovies.append(txtBoxGenre)
+                ulMovies.append(txtBoxDirector)
+                ulMovies.append(btnSubmit)        
+            })
         });
 
     </script>
@@ -75,6 +140,7 @@
 <body>
     <input id="btn" type="button" value="Get All Movies" />
     <input id="btnClear" type="button" value="Clear" />
+    <input id="btnAdd" type="button" value="Add" />
     <input id="search" type="search" placeholder="Search" />
     <ul id="ulMovies"></ul>
 </body>
