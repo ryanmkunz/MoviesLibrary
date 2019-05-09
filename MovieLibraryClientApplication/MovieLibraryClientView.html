@@ -17,11 +17,24 @@
                         ulMovies.empty();
                         $.each(data, function (index, val) {
                             var movieTitle = val.Title;
+                            var movieGenre = val.Genre;
+                            var movieDirectorName = val.DirectorName;
+                            var btnDetails = $('<input type="button" value="Details" id="btnDetails" /> ').data('title', movieTitle).data('genre', movieGenre).data('director', movieDirectorName).on('click', function () {
+                                var title = $(this).data('title');
+                                var genre = $(this).data('genre');
+                                var directorName = $(this).data('director');
+                                ulMovies.empty()
+                                ulMovies.append('<li>' + title + '</li>')
+                                ulMovies.append('<li>' + genre + '</li>')
+                                ulMovies.append('<li>' + directorName + '</li>')
+                            });                            
                             ulMovies.append('<li>' + movieTitle + '</li>')
+                            ulMovies.append(btnDetails)                            
                         });
                     }
                 });
             });           
+
             $('#search').keypress(function () {
                 var current_query = $("#search").val();
                 $.ajax({
@@ -35,12 +48,23 @@
                             var movieGenre = val.Genre;
                             var movieDirectorName = val.DirectorName;
                             if (movieTitle == current_query || movieGenre == current_query || movieDirectorName == current_query) {
+                                var btnDetails = $('<input type="button" value="Details" id="btnDetails" /> ').data('title', movieTitle).data('genre', movieGenre).data('director', movieDirectorName).on('click', function () {
+                                    var title = $(this).data('title');
+                                    var genre = $(this).data('genre');
+                                    var directorName = $(this).data('director');
+                                    ulMovies.empty()
+                                    ulMovies.append('<li>' + title + '</li>')
+                                    ulMovies.append('<li>' + genre + '</li>')
+                                    ulMovies.append('<li>' + directorName + '</li>')
+                                });
                                 ulMovies.append('<li>' + movieTitle + '</li>')
+                                ulMovies.append(btnDetails)
                             }                            
                         });
                     }
                 });
             });
+
             $('#btnClear').click(function () {
                 ulMovies.empty();
             });
